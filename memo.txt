@@ -1,0 +1,73 @@
+================================
+			GETH
+================================
+> personal.newAccount("Bollore2017")
+"0xe6aaf15ba890072a3073fc83f8972f53b3435bb7"
+
+personal.listAccounts
+personal.unlockAccount("0x007ccffb7916f37f7aeef05e8096ecfbe55afc2f","",500000)
+
+> miner.setEtherbase(eth.accounts[0])
+true
+> personal.unlockAccount(eth.coinbase)
+Unlock account 0xe6aaf15ba890072a3073fc83f8972f53b3435bb7
+Passphrase:
+true
+> eth.getBalance(eth.coinbase).toNumber();
+0
+> miner.start(2)
+true
+
+
+=======================================
+Developpemnt truffle  Document notarisé
+=======================================
+
+Source : https://medium.com/zeppelin-blog/the-hitchhikers-guide-to-smart-contracts-in-ethereum-848f08001f05
+https://medium.com/@ConsenSys/a-101-noob-intro-to-programming-smart-contracts-on-ethereum-695d15c1dab4
+https://souptacular.gitbooks.io/ethereum-tutorials-and-tips-by-hudson/content/giant_ethereum_resource_list.html
+
+docker-compose run truffle bash
+cd /root/ProofOfExistence1/
+truffle init
+- Supprimer fichiers inutilement crée
+- Modifier truffle.js : host: "testrpc"
+- Modifier migration/2_deploy_contracts.js avec : ProofOfExistence1
+truffle create contract ProofOfExistence1
+- Développer le contrat
+truffle migrate --reset
+truffle console
+
+var poe
+ProofOfExistence1.deployed().then(function(instance){poe=instance})
+console.log(poe.address)
+poe.notarize('Coucou je suis un document notarise dans la blockchain')
+poe.calculateProof('Coucou je suis un document notarise dans la blockchain').then(console.log)
+poe.proof().then(console.log)
+
+
+
+// deploy contracts
+truffle migrate --reset
+truffle console
+
+// Get the new version of the contract
+truffle(default)> ProofOfExistence2.deployed().then(function(instance){poe=instance})
+
+// let's check for some new document, and it shouldn't be there.
+truffle(default)> poe.checkDocument('hello').then(console.log)
+false
+
+// let's now add that document to the proof store
+truffle(default)> poe.notarize('hello')
+
+// let's now check again if the document has been notarized!
+truffle(default)> poe.checkDocument('hello').then(console.log)
+true
+
+// success!
+// we can also store other documents and they are recorded too
+truffle(default)> poe.notarize('some other document');
+truffle(default)> poe.checkDocument('some other document').then(console.log)
+
+true
