@@ -35,6 +35,7 @@ truffle init
 - Modifier migration/2_deploy_contracts.js avec : ProofOfExistence1
 truffle create contract ProofOfExistence1
 - Développer le contrat
+truffle compile
 truffle migrate --reset
 truffle console
 
@@ -53,6 +54,8 @@ truffle console
 
 // Get the new version of the contract
 truffle(default)> ProofOfExistence2.deployed().then(function(instance){poe=instance})
+// and print its address 
+truffle(default)> console.log(poe.address)
 
 // let's check for some new document, and it shouldn't be there.
 truffle(default)> poe.checkDocument('hello').then(console.log)
@@ -71,3 +74,23 @@ truffle(default)> poe.notarize('some other document');
 truffle(default)> poe.checkDocument('some other document').then(console.log)
 
 true
+
+
+
+
+
+=======================================
+Developpemnt truffle Voting app
+=======================================
+docker-compose build
+docker-compose up -d
+docker-compose run truffle bash
+cd /root/ethereum_voting_dapp/
+Modifier truffle.js : host: "testrpc"
+truffle compile
+truffle migrate
+
+cd ethereum_voting_dapp
+docker build -t ethereum_voting_dapp .
+docker run -p 8080:8080 ethereum_voting_dapp
+ 
