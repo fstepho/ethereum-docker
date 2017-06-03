@@ -87,6 +87,7 @@ docker-compose up -d
 docker-compose run truffle bash
 cd /root/ethereum_voting_dapp/
 Modifier truffle.js : host: "testrpc"
+npm install
 truffle compile
 truffle migrate
 

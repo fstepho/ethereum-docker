@@ -78,3 +78,6 @@ services:
     hostname: ethereum_voting_dapp
     ports:
       - "8080:8080"
+    volumes:
+      - ./ethereum_voting_dapp/chapter3/build/contracts:/usr/src/app/build/contracts
+
