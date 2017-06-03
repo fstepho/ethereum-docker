@@ -29,37 +29,52 @@ services:
       - ./ProofOfExistence1:/root/ProofOfExistence1
       - ./ProofOfExistence2:/root/ProofOfExistence2
       - ./ProofOfExistence3:/root/ProofOfExistence3
+      - ./ethereum_voting_dapp/chapter3:/root/ethereum_voting_dapp
 
-  meteor-dapp-boilerplate:
-    image: ulexus/meteor:legacy
-    container_name: meteor-dapp-boilerplate
-    hostname: meteor-dapp-boilerplate
-    volumes:
-      - ./meteor-dapp-boilerplate/app:/src/app
-      - ./meteor-dapp-boilerplate/app:/var/www
-    ports:
-      - "3003:3000"
-    environment:
-      - METEOR_ALLOW_SUPERUSER=true
-      - ROOT_URL=http://localhost:3003
+#  meteor-dapp-boilerplate:
+#    image: ulexus/meteor:v1.4-build
+#    container_name: meteor-dapp-boilerplate
+#    hostname: meteor-dapp-boilerplate
+#    volumes:
+#      - ./meteor-dapp-boilerplate/app:/home/meteor/src
+#    ports:
+#      - "8081:80"
+#    environment:
+#      - METEOR_ALLOW_SUPERUSER=true
+#      - ROOT_URL=http://localhost:8081
 
-  cargochain:
-    image: ulexus/meteor:legacy
-    container_name: cargochain
-    hostname: cargochain
-    volumes:
-      - ./cargochain/app:/src/app
-      - ./cargochain/app:/var/www
-    ports:
-      - "3002:3000"
-      - "8080:80"
-    environment:
-      - METEOR_ALLOW_SUPERUSER=true
-      - MONGO_URL=mongodb://mongo:27017
-      - ROOT_URL=http://localhost:3002
+#  cargochain:
+#    image: ulexus/meteor:legacy
+#    container_name: cargochain
+#    hostname: cargochain
+#    volumes:
+#      - ./cargochain/app:/src/app
+#      - ./cargochain/app:/var/www
+#    ports:
+#      - "8082:80"
+#    environment:
+#      - METEOR_ALLOW_SUPERUSER=true
+#      - MONGO_URL=mongodb://mongo:27017
+#      - ROOT_URL=http://localhost:8082
 
   mongo:  
     image: mongo:3.4
     container_name: mongo
     ports:
       - "27017:27017"
+
+  ethexplorer:
+    image: settlemint/ethexplorer
+    container_name: ethexplorer
+    hostname: ethexplorer
+    environment:
+      - WEB3_RPC=http://localhost:8545  #http://abc.xyz.com:8545 for selectRpcAndRun.sh
+    ports:
+      - "8000:8000"
+
+  ethereum_voting_dapp:
+    build: ethereum_voting_dapp/chapter3
+    container_name: ethereum_voting_dapp
+    hostname: ethereum_voting_dapp
+    ports:
+      - "8080:8080"
