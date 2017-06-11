@@ -91,6 +91,7 @@ docker-compose run --service-ports ethereum_voting_dapp npm run dev
 
 PROD : 
 docker-compose -f docker-compose-voting-deploy.yml run ethereum_voting_dapp npm install
+docker-compose -f docker-compose-voting-deploy.yml run --service-ports ethereum_voting_dapp npm run dev
 
 =======================================
 New projet with truffle
@@ -154,3 +155,4 @@ eth.accounts
 
 
 Voting contract Testnet ropsten networ : 0x5ec4e9d787e12a7f839ee4a6cfeccbfc63f3f833
+Account Testnet : 0x2162D598a2ED142009785E2ECbcb69638D3B7ca5
