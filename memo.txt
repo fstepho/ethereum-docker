@@ -79,18 +79,6 @@ true
 =======================================
 Developpemnt truffle Voting app
 =======================================
-docker-compose build
-docker-compose up -d
-docker-compose run truffle bash
-cd /root/ethereum_voting_dapp/
-Modifier truffle.js : host: "testrpc"
-npm install
-truffle compile
-truffle migrate
-
-cd ethereum_voting_dapp
-docker build -t ethereum_voting_dapp .
-docker run -p 8080:8080 ethereum_voting_dapp
 
 docker-compose build ethereum_voting_dapp
 docker-compose run ethereum_voting_dapp npm install
@@ -99,6 +87,10 @@ docker-compose run ethereum_voting_dapp truffle migrate
 docker-compose run ethereum_voting_dapp truffle migrate --network testnet
 docker-compose run ethereum_voting_dapp truffle console
 docker-compose run --service-ports ethereum_voting_dapp npm run dev
+
+
+PROD : 
+docker-compose -f docker-compose-voting-deploy.yml run ethereum_voting_dapp npm install
 
 =======================================
 New projet with truffle
