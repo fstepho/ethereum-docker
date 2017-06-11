@@ -87,53 +87,51 @@ services:
     links:
       - testrpc
 
-  pillartoken:
-    build: PillarToken
-    container_name: pillartoken
-    hostname: pillartoken
-    ports:
-      - "8081:8080"
-    volumes:
-      - ./PillarToken/build/contracts:/usr/src/app/build/contracts
+#  pillartoken:
+#    build: PillarToken
+#    container_name: pillartoken
+#    hostname: pillartoken
+#    ports:
+#      - "8081:8080"
+#    volumes:
+#      - ./PillarToken/build/contracts:/usr/src/app/build/contracts
 
-  truffle-init-angular:
-    build: truffle
-    container_name: truffle-init-angular
-    links:
-      - testrpc
-    volumes:
-      - ./truffle-init-angular:/root/app
-    ports:
-      - "3000:3000"
+#  truffle-init-angular:
+#    build: truffle
+#    container_name: truffle-init-angular
+#    links:
+#      - testrpc
+#    volumes:
+#      - ./truffle-init-angular:/root/app
+#    ports:
+#      - "3000:3000"
 
-  truffle-webpack-demo:
-    build: truffle
-    container_name: truffle-webpack-demo
-    links:
-      - testrpc
-    volumes:
-      - ./truffle-webpack-demo:/root/app
-    ports:
-      - "3000:3000"
+#  truffle-webpack-demo:
+#    build: truffle
+#    container_name: truffle-webpack-demo
+#    links:
+#      - testrpc
+#    volumes:
+#      - ./truffle-webpack-demo:/root/app
+#    ports:
+#      - "3000:3000"
 
-  truffle-init-webpack:
-    build: truffle
-    container_name: truffle-init-webpack
-    links:
-      - testrpc
-    volumes:
-      - ./truffle-init-webpack:/root/app
-    ports:
-      - "3000:3000"
+#  truffle-init-webpack:
+#    build: truffle
+#    container_name: truffle-init-webpack
+#    links:
+#      - testrpc
+#    volumes:
+#      - ./truffle-init-webpack:/root/app
+#    ports:
+#      - "3000:3000"
 
-  ethereum-metacoin-client:
-    build: truffle
-    container_name: ethereum-metacoin-client
-    links:
-      - testrpc
-    volumes:
-      - ./ethereum-metacoin-client:/root/app
-    ports:
-      - "3000:3000"
-
-
+#  ethereum-metacoin-client:
+#    build: truffle
+#    container_name: ethereum-metacoin-client
+#    links:
+#      - testrpc
+#    volumes:
+#      - ./ethereum-metacoin-client:/root/app
+#    ports:
+#      - "3000:3000"
