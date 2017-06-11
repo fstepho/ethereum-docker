@@ -76,9 +76,6 @@ truffle(default)> poe.checkDocument('some other document').then(console.log)
 true
 
 
-
-
-
 =======================================
 Developpemnt truffle Voting app
 =======================================
@@ -94,4 +91,74 @@ truffle migrate
 cd ethereum_voting_dapp
 docker build -t ethereum_voting_dapp .
 docker run -p 8080:8080 ethereum_voting_dapp
- 
+
+docker-compose build ethereum_voting_dapp
+docker-compose run ethereum_voting_dapp npm install
+docker-compose run ethereum_voting_dapp truffle compile
+docker-compose run ethereum_voting_dapp truffle migrate
+docker-compose run ethereum_voting_dapp truffle migrate --network testnet
+docker-compose run ethereum_voting_dapp truffle console
+docker-compose run --service-ports ethereum_voting_dapp npm run dev
+
+=======================================
+New projet with truffle
+=======================================
+docker-compose run truffle truffle init
+-> Modifier app/truffle.js : host: "testrpc"
+docker-compose run truffle truffle compile
+docker-compose run truffle truffle migrate
+docker-compose run truffle truffle test
+docker-compose run truffle truffle console
+var metacoin
+MetaCoin.deployed().then(function(instance){metacoin =instance})
+console.log(metacoin.address)
+
+
+=======================================
+truffle init angular
+=======================================
+docker-compose run truffle-init-angular npm install
+docker-compose run truffle-init-angular truffle compile
+docker-compose run truffle-init-angular truffle migrate
+docker-compose run truffle-init-angular truffle test
+docker-compose run truffle-init-angular truffle console
+docker-compose run --service-ports truffle-init-angular truffle build
+
+
+=======================================
+truffle init truffle-webpack-demo
+=======================================
+docker-compose run truffle-webpack-demo truffle compile
+docker-compose run truffle-webpack-demo truffle migrate
+docker-compose run truffle-webpack-demo truffle test
+docker-compose run truffle-webpack-demo truffle console
+docker-compose run --service-ports truffle-webpack-demo truffle build
+
+
+=======================================
+truffle ethereum-metacoin-client
+=======================================
+docker-compose build ethereum-metacoin-client
+docker-compose run ethereum-metacoin-client npm install
+docker-compose run ethereum-metacoin-client truffle compile
+docker-compose run ethereum-metacoin-client truffle migrate
+docker-compose run ethereum-metacoin-client truffle test
+docker-compose run ethereum-metacoin-client truffle console
+docker-compose run --service-ports ethereum-metacoin-client npm run dev
+
+
+=======================================
+truffle deploiement testnet
+=======================================
+docker run -d --name ethereum-node -v /home/ubuntu/ethereum-node:/root -p 8545:8545 -p 30303:30303 ethereum/client-go --testnet --fast --cache=512 --rpc --rpcapi --rpccorsdomain="*"
+docker exec -it 7b26a089f62a geth attach ipc://root/.ethereum/testnet/geth.ipc --datadir "/root/.ethereum/testnet/"
+
+// Activation webjs RPC
+admin.startRPC("0.0.0.0", 8545, "*", "web3,net,eth")
+// Création account. La clé chiffré sera créee dans le .ethereum/testnet/keystore
+personal.newAccount("passphrase")
+// Vérification
+eth.accounts
+
+
+Voting contract Testnet ropsten networ : 0x5ec4e9d787e12a7f839ee4a6cfeccbfc63f3f833

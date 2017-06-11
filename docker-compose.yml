@@ -5,8 +5,6 @@ services:
     build: testrpc
     container_name: testrpc
     hostname: testrpc
-    links:
-      - netstats
     ports:
       - "8545:8545"
     volumes:
@@ -20,16 +18,22 @@ services:
       - WS_SECRET=eth-net-stats-secret
     ports:
       - "3000:3000"
+    links:
+      - testrpc
 
   truffle:
     build: truffle
     container_name: truffle
+    links:
+      - testrpc
     volumes:
       - ./cargochain:/root/cargochain
       - ./ProofOfExistence1:/root/ProofOfExistence1
       - ./ProofOfExistence2:/root/ProofOfExistence2
       - ./ProofOfExistence3:/root/ProofOfExistence3
       - ./ethereum_voting_dapp/chapter3:/root/ethereum_voting_dapp
+      - ./PillarToken:/root/PillarToken
+      - ./truffle/app:/root/app
 
 #  meteor-dapp-boilerplate:
 #    image: ulexus/meteor:v1.4-build
@@ -73,11 +77,63 @@ services:
       - "8000:8000"
 
   ethereum_voting_dapp:
-    build: ethereum_voting_dapp/chapter3
+    build: truffle
     container_name: ethereum_voting_dapp
     hostname: ethereum_voting_dapp
     ports:
       - "8080:8080"
     volumes:
-      - ./ethereum_voting_dapp/chapter3/build/contracts:/usr/src/app/build/contracts
+      - ./ethereum_voting_dapp:/root/app
+    links:
+      - testrpc
+
+  pillartoken:
+    build: PillarToken
+    container_name: pillartoken
+    hostname: pillartoken
+    ports:
+      - "8081:8080"
+    volumes:
+      - ./PillarToken/build/contracts:/usr/src/app/build/contracts
+
+  truffle-init-angular:
+    build: truffle
+    container_name: truffle-init-angular
+    links:
+      - testrpc
+    volumes:
+      - ./truffle-init-angular:/root/app
+    ports:
+      - "3000:3000"
+
+  truffle-webpack-demo:
+    build: truffle
+    container_name: truffle-webpack-demo
+    links:
+      - testrpc
+    volumes:
+      - ./truffle-webpack-demo:/root/app
+    ports:
+      - "3000:3000"
+
+  truffle-init-webpack:
+    build: truffle
+    container_name: truffle-init-webpack
+    links:
+      - testrpc
+    volumes:
+      - ./truffle-init-webpack:/root/app
+    ports:
+      - "3000:3000"
+
+  ethereum-metacoin-client:
+    build: truffle
+    container_name: ethereum-metacoin-client
+    links:
+      - testrpc
+    volumes:
+      - ./ethereum-metacoin-client:/root/app
+    ports:
+      - "3000:3000"
+
 
